@@ -62,29 +62,21 @@ app.get("/account/all", function (req, res) {
   });
 });
 
-// // deposit
-// app.get("/account/deposit/:email/:amount", function (req, res) {
-//   res.send({
-//     email: req.params.email,
-//     amount: req.params.amount,
-//   });
-// });
+// find user account
+app.get("/account/find/:email", function (req, res) {
+  dal.find(req.params.email).then((user) => {
+    console.log(user);
+    res.send(user);
+  });
+});
 
-// // withdraw
-// app.get("/account/withdraw/:email/:amount", function (req, res) {
-//   res.send({
-//     email: req.params.email,
-//     amount: req.params.amount,
-//   });
-// });
-
-// // balance
-// app.get("/account/balance/:email/:amount", function (req, res) {
-//   res.send({
-//     email: req.params.email,
-//     amount: req.params.amount,
-//   });
-// });
+// find one user by email - alternative to find
+app.get("/account/findOne/:email", function (req, res) {
+  dal.findOne(req.params.email).then((user) => {
+    console.log(user);
+    res.send(user);
+  });
+});
 
 var port = 3000;
 app.listen(port);
