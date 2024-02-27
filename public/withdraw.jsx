@@ -6,41 +6,53 @@ function Withdraw() {
     <Card
       bgcolor="light"
       header="Withdraw"
-      status=""
+      status={status}
       body={
         show ? (
-          <CreateForm setShow={setShow} />
+          <WithdrawForm setShow={setShow} setStatus={setStatus} />
         ) : (
-          <CreateMsg setShow={setShow} />
+          <WithdrawMsg setShow={setShow} setStatus={setStatus} />
         )
       }
     />
   );
 
-  function CreateMsg(props) {
+  function WithdrawMsg(props) {
     return (
       <>
         <h5>Success</h5>
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={() => props.setShow(true)}
+          onClick={() => {
+            props.setShow(true);
+            props.setStatus("");
+          }}
         >
-          Go back to Withdraw Page
+          Withdraw again
         </button>
       </>
     );
   }
 
-  function CreateForm(props) {
+  function WithdrawForm(props) {
     const [email, setEmail] = React.useState("");
-    const [amount, setAmount] = React.useState(0);
-    const ctx = React.useContext(UserContext);
+    const [amount, setAmount] = React.useState("");
 
     function handle() {
-      console.log(`Withdrew ${amount} from ${email}`);
-      alert(`Withdrew ${amount} from ${email}`);
-      props.setShow(false);
+      fetch(`/account/update/${email}/-${amount}`)
+        .then((response) => response.text())
+        .then((text) => {
+          try {
+            const data = JSON.parse(text);
+            props.setStatus(JSON.stringify(data.value));
+            props.setShow(false);
+            console.log("JSON:", data);
+          } catch (err) {
+            props.setStatus("Deposit failed");
+            console.log("err:", text);
+          }
+        });
     }
 
     return (
@@ -51,6 +63,7 @@ function Withdraw() {
           type="input"
           className="form-control"
           placeholder="Enter email"
+          value={email}
           onChange={(e) => setEmail(e.currentTarget.value)}
         />
         <br />
@@ -60,6 +73,7 @@ function Withdraw() {
           type="input"
           className="form-control"
           placeholder="Enter amount"
+          value={amount}
           onChange={(e) => setAmount(e.currentTarget.value)}
         />
         <br />
