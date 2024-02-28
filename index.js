@@ -1,4 +1,4 @@
-// Server Side index.js
+// Server Side index.js (Express)
 var express = require("express");
 var app = express();
 var cors = require("cors");
