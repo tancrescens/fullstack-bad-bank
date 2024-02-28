@@ -1,5 +1,4 @@
-# Project Title:
-Fullstack Badbank
+# Fullstack Badbank
 
 # Description
 A fullstack badbank application that includes authentication, authorization built on the MERN-stack <br>
