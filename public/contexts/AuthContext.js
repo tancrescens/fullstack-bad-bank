@@ -1,12 +1,12 @@
-const AuthContext = React.createContext();
+const AuthContext = React.createContext(null);
 
 export function useAuth() {
-  return useContext(AuthContext);
+  return React.useContext(AuthContext);
 }
 
 export function AuthProvider(props) {
-  const [authUser, setAuthUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authUser, setAuthUser] = React.useState(null);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   const value = {
     authUser,

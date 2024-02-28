@@ -3,20 +3,23 @@ function Login() {
   const [status, setStatus] = React.useState("");
 
   return (
-    <Card
-      bgcolor="light"
-      header="Login"
-      status={status}
-      body={
-        show ? (
-          <LoginForm setShow={setShow} setStatus={setStatus} />
-        ) : (
-          <LoginMsg setShow={setShow} setStatus={setStatus} />
-        )
-      }
-    />
+    <>
+      <Card
+        bgcolor="light"
+        header="Login"
+        status={status}
+        body={
+          show ? (
+            <LoginForm setShow={setShow} setStatus={setStatus} />
+          ) : (
+            <LoginMsg setShow={setShow} setStatus={setStatus} />
+          )
+        }
+      />
+    </>
   );
 }
+
 function LoginMsg(props) {
   return (
     <>

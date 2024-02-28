@@ -2,6 +2,10 @@
 function Spa() {
   return (
     <>
+      <AuthProvider>
+        <Dashboard></Dashboard>
+      </AuthProvider>
+
       <HashRouter>
         <div>
           <NavBar />
