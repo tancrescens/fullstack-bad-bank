@@ -1,6 +1,4 @@
 function NavBar() {
-  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
-
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
