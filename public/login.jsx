@@ -46,6 +46,7 @@ function LoginForm(props) {
   function handle() {
     const url = `/account/login/${email}/${password}`;
 
+    // Login Attempt
     fetch(url)
       .then((response) => response.text())
       .then((text) => {
@@ -58,6 +59,10 @@ function LoginForm(props) {
 
           props.ctx.loginStatus[0].setIsLoggedIn(true);
           console.log(`IsLoggedInTry: ${props.ctx.loginStatus[0].isLoggedIn}`);
+          props.ctx.users = [];
+          props.ctx.users.push(data);
+          console.log("After pushing data into ctx.users");
+          console.log(props.ctx.users);
         } catch (err) {
           props.setStatus(text);
           console.log("err:", text);
