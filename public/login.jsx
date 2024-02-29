@@ -1,4 +1,5 @@
 function Login() {
+  let ctx = React.useContext(UserContext);
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState("");
 
@@ -10,9 +11,9 @@ function Login() {
         status={status}
         body={
           show ? (
-            <LoginForm setShow={setShow} setStatus={setStatus} />
+            <LoginForm setShow={setShow} setStatus={setStatus} ctx={ctx} />
           ) : (
-            <LoginMsg setShow={setShow} setStatus={setStatus} />
+            <LoginMsg setShow={setShow} setStatus={setStatus} ctx={ctx} />
           )
         }
       />
@@ -21,15 +22,18 @@ function Login() {
 }
 
 function LoginMsg(props) {
+  const history = ReactRouterDOM.useHistory();
+
+  const handleProceed = () => {
+    // Redirect to the home page
+    history.push("/");
+  };
+
   return (
     <>
       <h5>Success</h5>
-      <button
-        type="submit"
-        className="btn btn-primary"
-        onClick={() => props.setShow(true)}
-      >
-        Authenticate again
+      <button type="submit" className="btn btn-primary" onClick={handleProceed}>
+        Proceed to home page
       </button>
     </>
   );
@@ -46,14 +50,22 @@ function LoginForm(props) {
       .then((response) => response.text())
       .then((text) => {
         try {
-          console.log(`response.text() resolved`);
+          // data/user info received
           const data = JSON.parse(text);
           props.setStatus("");
           props.setShow(false);
           console.log("JSON:", data);
+
+          props.ctx.loginStatus[0].setIsLoggedIn(true);
+          console.log(`IsLoggedInTry: ${props.ctx.loginStatus[0].isLoggedIn}`);
         } catch (err) {
           props.setStatus(text);
           console.log("err:", text);
+
+          props.ctx.loginStatus[0].setIsLoggedIn(false);
+          console.log(
+            `IsLoggedInCatch: ${props.ctx.loginStatus[0].isLoggedIn}`
+          );
         }
       });
   }
@@ -86,37 +98,3 @@ function LoginForm(props) {
     </>
   );
 }
-
-// <div className="card" style="width: 18rem">
-//   <div className="card-body">
-//     <h5 className="card-title">Login</h5>
-//     <p className="card-text"></p>
-//     Email
-//     <br />
-//     <input
-//       type="input"
-//       className="form-control"
-//       id="loginEmail"
-//       placeholder="Enter email"
-//     />
-//     <br />
-//     Password
-//     <br />
-//     <input
-//       type="password"
-//       className="form-control"
-//       id="loginPassword"
-//       placeholder="Enter password"
-//     />
-//     <br />
-//     <button
-//       type="submit"
-//       id="submit"
-//       className="btn btn-primary"
-//       onClick=""
-//     >
-//       Login
-//     </button>
-//     <div id="loginStatus"></div>
-//   </div>
-// </div>

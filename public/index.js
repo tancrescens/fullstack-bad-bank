@@ -1,23 +1,27 @@
 // Coordinator of modules
 function Spa() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  let contextValue = {
+    users: [
+      {
+        name: "abel",
+        email: "abel@mit.edu",
+        password: "secret",
+        balance: 100,
+      },
+    ],
+    loginStatus: [{ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn }],
+  };
+
   return (
     <>
-      <AuthProvider>
-        <HashRouter>
-          <div>
-            <NavBar />
-            <UserContext.Provider
-              value={{
-                users: [
-                  {
-                    name: "abel",
-                    email: "abel@mit.edu",
-                    password: "secret",
-                    balance: 100,
-                  },
-                ],
-              }}
-            >
+      <UserContext.Provider value={contextValue}>
+        <AuthProvider>
+          <HashRouter>
+            <div>
+              <NavBar />
+
               <div className="container" style={{ padding: "20px" }}>
                 <Route path="/" exact component={Home} />
                 <Route
@@ -31,10 +35,10 @@ function Spa() {
                 <Route path="/balance/" exact component={Balance} />
                 <Route path="/allData/" exact component={AllData} />
               </div>
-            </UserContext.Provider>
-          </div>
-        </HashRouter>
-      </AuthProvider>
+            </div>
+          </HashRouter>
+        </AuthProvider>
+      </UserContext.Provider>
     </>
   );
 }
