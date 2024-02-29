@@ -18,9 +18,17 @@ function NavBar() {
     }
   }
 
-  const logout = function () {
+  function logout() {
+    ctx.loginName[0].setLoggedInName("");
+    ctx.users = [];
     ctx.loginStatus[0].setIsLoggedIn(false);
-  };
+
+    console.log("logged out");
+    console.log(`login name: ${ctx.loginName[0].loggedInName}`);
+    console.log(`ctx users: `);
+    console.log(ctx.users);
+    console.log(`ctx login status: ${ctx.loginStatus[0].isLoggedIn}`);
+  }
 
   /* AuthProvider */
   // const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
@@ -163,7 +171,7 @@ function NavBar() {
             </ul>
             <span className="navbar-text">
               <a className="nav-link" href="#" onClick={logout}>
-                {/* {ctx.users[0].name} | Logout */} | Logout
+                {`${ctx.loginName[0].loggedInName} `}| Logout
               </a>
             </span>
           </div>

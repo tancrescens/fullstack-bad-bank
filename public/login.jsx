@@ -63,6 +63,8 @@ function LoginForm(props) {
           props.ctx.users.push(data);
           console.log("After pushing data into ctx.users");
           console.log(props.ctx.users);
+          // setting loggedIn name
+          props.ctx.loginName[0].setLoggedInName(props.ctx.users[0].name);
         } catch (err) {
           props.setStatus(text);
           console.log("err:", text);

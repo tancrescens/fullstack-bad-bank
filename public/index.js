@@ -1,6 +1,7 @@
 // Coordinator of modules
 function Spa() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [loggedInName, setLoggedInName] = React.useState("");
 
   let contextValue = {
     users: [
@@ -12,6 +13,9 @@ function Spa() {
       },
     ],
     loginStatus: [{ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn }],
+    loginName: [
+      { loggedInName: loggedInName, setLoggedInName: setLoggedInName },
+    ],
   };
 
   return (
