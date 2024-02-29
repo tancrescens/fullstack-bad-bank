@@ -3,14 +3,7 @@ function Spa() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   let contextValue = {
-    users: [
-      {
-        name: "abel",
-        email: "abel@mit.edu",
-        password: "secret",
-        balance: 100,
-      },
-    ],
+    users: [],
     loginStatus: [{ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn }],
   };
 

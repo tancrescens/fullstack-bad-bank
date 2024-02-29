@@ -163,7 +163,7 @@ function NavBar() {
             </ul>
             <span className="navbar-text">
               <a className="nav-link" href="#" onClick={logout}>
-                Logout
+                {/* {ctx.users[0].name} | Logout */} | Logout
               </a>
             </span>
           </div>
