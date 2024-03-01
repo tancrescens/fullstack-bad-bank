@@ -42,13 +42,26 @@ function CreateAccount() {
 
       // creating account in db
       const url = `/account/create/${name}/${email}/${password}`;
-      (async () => {
-        var res = await fetch(url);
-        var data = await res.json();
-        console.log(`Creation success for ${JSON.stringify(data)}`);
-      })();
-
-      props.setShow(false);
+      fetch(url)
+        .then((res) => {
+          res.data;
+        })
+        .then((data) => {
+          if (data == "") {
+            setStatus(data);
+          } else {
+            console.log(`Creation success for ${JSON.stringify(data)}`);
+            props.setShow(false);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      //   (async () => {
+      //   var res = await fetch(url);
+      //   var data = await res.json();
+      //   console.log(`Creation success for ${JSON.stringify(data)}`);
+      // })();
     }
 
     return (
