@@ -1,4 +1,5 @@
 function Withdraw() {
+  const ctx = React.useContext(UserContext);
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState("");
 
@@ -9,9 +10,9 @@ function Withdraw() {
       status={status}
       body={
         show ? (
-          <WithdrawForm setShow={setShow} setStatus={setStatus} />
+          <WithdrawForm setShow={setShow} setStatus={setStatus} ctx={ctx} />
         ) : (
-          <WithdrawMsg setShow={setShow} setStatus={setStatus} />
+          <WithdrawMsg setShow={setShow} setStatus={setStatus} ctx={ctx} />
         )
       }
     />
@@ -40,12 +41,14 @@ function Withdraw() {
     const [amount, setAmount] = React.useState("");
 
     function handle() {
-      fetch(`/account/update/${email}/-${amount}`)
+      fetch(
+        `/account/update/${props.ctx.loginEmail[0].loggedInEmail}/-${amount}`
+      )
         .then((response) => response.text())
         .then((text) => {
           try {
             const data = JSON.parse(text);
-            props.setStatus(JSON.stringify(data.value));
+            props.setStatus(`Balance: ${JSON.stringify(data.value.balance)}`);
             props.setShow(false);
             console.log("JSON:", data);
           } catch (err) {
@@ -57,7 +60,7 @@ function Withdraw() {
 
     return (
       <>
-        Email address
+        {/* Email address
         <br />
         <input
           type="input"
@@ -66,7 +69,7 @@ function Withdraw() {
           value={email}
           onChange={(e) => setEmail(e.currentTarget.value)}
         />
-        <br />
+        <br /> */}
         Amount
         <br />
         <input

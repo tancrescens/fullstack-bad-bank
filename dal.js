@@ -11,11 +11,11 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
 });
 
 // create user account using the collection.insertOne function
-function create(name, email, password) {
+function create(name, email, password, balance) {
   // TODO: populate this function based off the video
   return new Promise((resolve, reject) => {
     const collection = db.collection("users");
-    const doc = { name, email, password };
+    const doc = { name, email, password, balance };
 
     collection.insertOne(doc, { w: 1 }, (err, result) => {
       err ? reject(err) : resolve(doc);

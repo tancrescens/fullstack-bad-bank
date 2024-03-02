@@ -17,11 +17,11 @@ app.get("/account/create/:name/:email/:password", function (req, res) {
       // if user exists, return error message
       if (users.length > 0) {
         console.log("User already exists");
-        res.send(users);
+        res.send("User already exits");
       } else {
         // else create user
         dal
-          .create(req.params.name, req.params.email, req.params.password)
+          .create(req.params.name, req.params.email, req.params.password, 0.0)
           .then((user) => {
             console.log("User Created: " + user);
             res.send(user);
@@ -53,10 +53,13 @@ app.get("/account/login/:email/:password", function (req, res) {
 app.get("/account/update/:email/:amount", function (req, res) {
   var amount = Number(req.params.amount);
 
-  dal.update(req.params.email, amount).then((response) => {
-    console.log(response);
-    res.send(response);
-  });
+  dal
+    .update(req.params.email, amount)
+    .then((response) => {
+      console.log(response);
+      res.send(response);
+    })
+    .catch((err) => err);
 });
 
 // all accounts

@@ -1,4 +1,5 @@
 function Deposit() {
+  const ctx = React.useContext(UserContext);
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState("");
 
@@ -9,9 +10,9 @@ function Deposit() {
       status={status}
       body={
         show ? (
-          <DepositForm setShow={setShow} setStatus={setStatus} />
+          <DepositForm setShow={setShow} setStatus={setStatus} ctx={ctx} />
         ) : (
-          <DepositMsg setShow={setShow} setStatus={setStatus} />
+          <DepositMsg setShow={setShow} setStatus={setStatus} ctx={ctx} />
         )
       }
     />
@@ -40,12 +41,14 @@ function Deposit() {
     const [amount, setAmount] = React.useState("");
 
     function handle() {
-      fetch(`/account/update/${email}/${amount}`)
+      fetch(
+        `/account/update/${props.ctx.loginEmail[0].loggedInEmail}/${amount}`
+      )
         .then((response) => response.text())
         .then((text) => {
           try {
             const data = JSON.parse(text);
-            props.setStatus(JSON.stringify(data.value));
+            props.setStatus(`Balance: ${JSON.stringify(data.value.balance)}`);
             props.setShow(false);
             console.log("JSON:", data);
           } catch (err) {
@@ -58,7 +61,7 @@ function Deposit() {
 
     return (
       <>
-        Email address
+        {/* Email address
         <br />
         <input
           type="input"
@@ -67,7 +70,7 @@ function Deposit() {
           value={email}
           onChange={(e) => setEmail(e.currentTarget.value)}
         />
-        <br />
+        <br /> */}
         Amount
         <br />
         <input

@@ -2,6 +2,7 @@
 function Spa() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [loggedInName, setLoggedInName] = React.useState("");
+  const [loggedInEmail, setLoggedInEmail] = React.useState("");
 
   let contextValue = {
     users: [
@@ -15,6 +16,9 @@ function Spa() {
     loginStatus: [{ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn }],
     loginName: [
       { loggedInName: loggedInName, setLoggedInName: setLoggedInName },
+    ],
+    loginEmail: [
+      { loggedInEmail: loggedInEmail, setLoggedInEmail: setLoggedInEmail },
     ],
   };
 
