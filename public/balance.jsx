@@ -47,9 +47,15 @@ function BalanceForm(props) {
       .then((text) => {
         try {
           const data = JSON.parse(text);
-          props.setStatus(`Balance: ${JSON.stringify(data.balance)}`);
+          if (data.balance == 0) {
+            props.setStatus(`Balance: ${0}`);
+            setBalance(data.balance);
+          } else {
+            props.setStatus(`Balance: ${JSON.stringify(data.balance)}`);
+            setBalance(data.balance);
+          }
           // props.setShow(false);
-          setBalance(data.balance);
+
           console.log("JSON:", data);
         } catch (err) {
           props.setStatus(text);
