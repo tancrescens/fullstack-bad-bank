@@ -43,15 +43,16 @@ function CreateAccount() {
       password: "",
     });
     const [errors, setErrors] = React.useState({});
-    const validations = ctx.validations[0];
 
+    // ===== START Validations START ===== //
     // Validation
     const validateForm = () => {
+      const validations = ctx.validations[0];
       let newErrors = {};
 
       // Validation: name is required
       if (!formData.name) {
-        newErrors.firstName = "First name is required";
+        newErrors.name = "Name is required";
       }
       // Validation: email is required + valid format
       if (!formData.email) {
@@ -133,10 +134,10 @@ function CreateAccount() {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          id="name"
+          id="createAccountname"
         />
         {errors.name && (
-          <label for="name" className="error">
+          <label for="createAccountName" className="error">
             {errors.name}
           </label>
         )}
@@ -150,10 +151,10 @@ function CreateAccount() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          id="email"
+          id="createAccountEmail"
         />
         {errors.email && (
-          <label for="email" className="error">
+          <label for="createAccountemail" className="error">
             {errors.email}
           </label>
         )}
@@ -170,7 +171,7 @@ function CreateAccount() {
           id="password"
         />
         {errors.password && (
-          <label for="password" className="error">
+          <label for="createAccountPassword" className="error">
             {errors.password}
           </label>
         )}
