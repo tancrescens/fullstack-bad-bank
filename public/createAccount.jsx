@@ -1,4 +1,5 @@
 function CreateAccount() {
+  const ctx = React.useContext(UserContext);
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState("");
 
@@ -42,31 +43,7 @@ function CreateAccount() {
       password: "",
     });
     const [errors, setErrors] = React.useState({});
-
-    // ===== START Validations START===== //
-    // check if valid password, returns true if valid
-    const isValidPassword = (password) => {
-      // Regular expressions for password validation
-      const passwordRegex =
-        /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,}$/;
-      // const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
-      // const numberRegex = /[0-9]/;
-      // const upperCaseRegex = /[A-Z]/;
-      // const lowerCaseRegex = /[a-z]/;
-
-      return password.length >= 8;
-      // symbolRegex.test(password) &&
-      // numberRegex.test(password) &&
-      // upperCaseRegex.test(password) &&
-      // lowerCaseRegex.test(password)
-    };
-
-    // check if valid email, returns true if valid
-    const isValidEmail = (email) => {
-      // Regular expression for basic email validation
-      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      return emailRegex.test(email);
-    };
+    const validations = ctx.validations[0];
 
     // Validation
     const validateForm = () => {
@@ -79,13 +56,13 @@ function CreateAccount() {
       // Validation: email is required + valid format
       if (!formData.email) {
         newErrors.email = "Email is required";
-      } else if (!isValidEmail(formData.email)) {
+      } else if (!validations.isValidEmail(formData.email)) {
         newErrors.email = "Invalid email format";
       }
 
       if (!formData.password) {
         newErrors.password = "Password is required";
-      } else if (!isValidPassword(formData.password)) {
+      } else if (!validations.isValidPassword(formData.password)) {
         newErrors.password = "Password must be at least 8 characters long";
         //"Password must be at least 8 characters long, contains at least one symbol, number, uppercase letter and lowercase letter";
       }

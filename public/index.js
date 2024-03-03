@@ -4,6 +4,31 @@ function Spa() {
   const [loggedInName, setLoggedInName] = React.useState("");
   const [loggedInEmail, setLoggedInEmail] = React.useState("");
 
+  // ===== START Validations START===== //
+  // check if valid password, returns true if valid
+  const isValidPassword = (password) => {
+    // Regular expressions for password validation
+    const passwordRegex =
+      /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,}$/;
+    // const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    // const numberRegex = /[0-9]/;
+    // const upperCaseRegex = /[A-Z]/;
+    // const lowerCaseRegex = /[a-z]/;
+    return password.length >= 8;
+    // && symbolRegex.test(password) &&
+    // numberRegex.test(password) &&
+    // upperCaseRegex.test(password) &&
+    // lowerCaseRegex.test(password)
+  };
+
+  // check if valid email, returns true if valid
+  const isValidEmail = (email) => {
+    // Regular expression for basic email validation
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return emailRegex.test(email);
+  };
+
+  // ===== CONTEXT VALUES =====
   let contextValue = {
     users: [
       {
@@ -19,6 +44,9 @@ function Spa() {
     ],
     loginEmail: [
       { loggedInEmail: loggedInEmail, setLoggedInEmail: setLoggedInEmail },
+    ],
+    validations: [
+      { isValidPassword: isValidPassword, isValidEmail: isValidEmail },
     ],
   };
 
