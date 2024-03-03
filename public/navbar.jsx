@@ -17,6 +17,11 @@ function NavBar() {
       document.getElementById("navLoggedIn").setAttribute("hidden", "hidden");
     }
   }
+  // Change the active tab onClick
+  function onClick(e) {
+    document.querySelector(".active").classList.remove("active");
+    e.target.classList.add("active");
+  }
 
   function logout() {
     ctx.loginName[0].setLoggedInName("");
@@ -38,9 +43,14 @@ function NavBar() {
         className="navbar navbar-expand-lg bg-body-tertiary"
       >
         <div className="container-fluid">
-          <a className="navbar-brand active" href="#">
-            {" "}
-            BadBank{" "}
+          <a
+            className="navbar-brand active"
+            href="#"
+            onClick={(e) => {
+              onClick(e);
+            }}
+          >
+            BadBank
           </a>
           <button
             className="navbar-toggler"
@@ -60,14 +70,23 @@ function NavBar() {
                   className="nav-link"
                   aria-current="page"
                   href="#/createAccount"
+                  onClick={(e) => {
+                    onClick(e);
+                  }}
                 >
                   Create Account
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="#/login/">
-                  {" "}
-                  Login{" "}
+                <a
+                  className="nav-link"
+                  aria-current="page"
+                  href="#/login/"
+                  onClick={(e) => {
+                    onClick(e);
+                  }}
+                >
+                  Login
                 </a>
               </li>
             </ul>
@@ -82,9 +101,14 @@ function NavBar() {
         hidden
       >
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            {" "}
-            BadBank{" "}
+          <a
+            className="navbar-brand"
+            href="#"
+            onClick={(e) => {
+              onClick(e);
+            }}
+          >
+            BadBank
           </a>
           <button
             className="navbar-toggler"
@@ -100,21 +124,39 @@ function NavBar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="#/deposit/">
-                  {" "}
-                  Deposit{" "}
+                <a
+                  className="nav-link"
+                  aria-current="page"
+                  href="#/deposit/"
+                  onClick={(e) => {
+                    onClick(e);
+                  }}
+                >
+                  Deposit
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="#/withdraw/">
-                  {" "}
-                  Withdraw{" "}
+                <a
+                  className="nav-link"
+                  aria-current="page"
+                  href="#/withdraw/"
+                  onClick={(e) => {
+                    onClick(e);
+                  }}
+                >
+                  Withdraw
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="#/balance/">
-                  {" "}
-                  Balance{" "}
+                <a
+                  className="nav-link"
+                  aria-current="page"
+                  href="#/balance/"
+                  onClick={(e) => {
+                    onClick(e);
+                  }}
+                >
+                  Balance
                 </a>
               </li>
             </ul>
