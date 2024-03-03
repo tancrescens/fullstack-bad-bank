@@ -33,30 +33,111 @@ function CreateAccount() {
   }
 
   function CreateForm(props) {
-    const [name, setName] = React.useState("");
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
+    // const [name, setName] = React.useState("");
+    // const [email, setEmail] = React.useState("");
+    // const [password, setPassword] = React.useState("");
+    const [formData, setFormData] = React.useState({
+      name: "",
+      email: "",
+      password: "",
+    });
+    const [errors, setErrors] = React.useState({});
 
-    function handle() {
-      console.log(`Creation attempt for : ${name}, ${email}, ${password}`);
+    // ===== START Validations START===== //
+    // check if valid password, returns true if valid
+    const isValidPassword = (password) => {
+      // Regular expressions for password validation
+      const passwordRegex =
+        /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,}$/;
+      // const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
+      // const numberRegex = /[0-9]/;
+      // const upperCaseRegex = /[A-Z]/;
+      // const lowerCaseRegex = /[a-z]/;
 
-      // creating account in db
-      const url = `/account/create/${name}/${email}/${password}`;
-      fetch(url)
-        .then((res) => {
-          res.data;
-        })
-        .then((data) => {
-          if (data == "") {
-            setStatus(data);
-          } else {
-            console.log(`Creation success for ${JSON.stringify(data)}`);
-            props.setShow(false);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      return password.length >= 8;
+      // symbolRegex.test(password) &&
+      // numberRegex.test(password) &&
+      // upperCaseRegex.test(password) &&
+      // lowerCaseRegex.test(password)
+    };
+
+    // check if valid email, returns true if valid
+    const isValidEmail = (email) => {
+      // Regular expression for basic email validation
+      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      return emailRegex.test(email);
+    };
+
+    // Validation
+    const validateForm = () => {
+      let newErrors = {};
+
+      // Validation: name is required
+      if (!formData.name) {
+        newErrors.firstName = "First name is required";
+      }
+      // Validation: email is required + valid format
+      if (!formData.email) {
+        newErrors.email = "Email is required";
+      } else if (!isValidEmail(formData.email)) {
+        newErrors.email = "Invalid email format";
+      }
+
+      if (!formData.password) {
+        newErrors.password = "Password is required";
+      } else if (!isValidPassword(formData.password)) {
+        newErrors.password = "Password must be at least 8 characters long";
+        //"Password must be at least 8 characters long, contains at least one symbol, number, uppercase letter and lowercase letter";
+      }
+
+      setErrors(newErrors);
+      console.log(`Errors: ${errors}`);
+      return Object.keys(newErrors).length === 0;
+    };
+    // ===== END Validations END ===== //
+
+    // handle input changes
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    };
+
+    // handle form submit button press
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      console.log(
+        `Account creation attempt for : ${formData.name}, ${formData.email}, ${formData.password}`
+      );
+      const isValid = validateForm();
+      if (isValid) {
+        console.log(`Account creation input validation SUCCESS`);
+
+        // creating account in db
+        const url = `/account/create/${formData.name}/${formData.email}/${formData.password}`;
+        fetch(url)
+          .then((res) => {
+            res.data;
+          })
+          .then((data) => {
+            if (data == "") {
+              setStatus(data);
+            } else {
+              console.log(`Creation success for ${JSON.stringify(data)}`);
+              props.setShow(false);
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else {
+        console.log(`Account creation input validation FAILED`);
+      }
+
       //   (async () => {
       //   var res = await fetch(url);
       //   var data = await res.json();
@@ -72,8 +153,16 @@ function CreateAccount() {
           type="input"
           className="form-control"
           placeholder="Enter name"
-          onChange={(e) => setName(e.currentTarget.value)}
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          id="name"
         />
+        {errors.name && (
+          <label for="name" className="error">
+            {errors.name}
+          </label>
+        )}
         <br />
         Email address
         <br />
@@ -81,8 +170,16 @@ function CreateAccount() {
           type="input"
           className="form-control"
           placeholder="Enter email"
-          onChange={(e) => setEmail(e.currentTarget.value)}
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          id="email"
         />
+        {errors.email && (
+          <label for="email" className="error">
+            {errors.email}
+          </label>
+        )}
         <br />
         Password
         <br />
@@ -90,10 +187,22 @@ function CreateAccount() {
           type="password"
           className="form-control"
           placeholder="Enter password"
-          onChange={(e) => setPassword(e.currentTarget.value)}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          id="password"
         />
+        {errors.password && (
+          <label for="password" className="error">
+            {errors.password}
+          </label>
+        )}
         <br />
-        <button type="submit" className="btn btn-primary" onClick={handle}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={handleSubmit}
+        >
           Create Account
         </button>
       </>
