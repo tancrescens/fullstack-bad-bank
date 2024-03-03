@@ -115,6 +115,9 @@ function LoginForm(props) {
             // setting loggedInName & loggedInEmail state
             props.ctx.loginName[0].setLoggedInName(props.ctx.users[0].name);
             props.ctx.loginEmail[0].setLoggedInEmail(props.ctx.users[0].email);
+            props.ctx.loginBalance[0].setLoggedInBalance(
+              props.ctx.users[0].balance
+            );
           } catch (err) {
             props.setStatus(text);
             console.log("err:", text);

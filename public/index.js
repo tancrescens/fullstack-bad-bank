@@ -3,6 +3,7 @@ function Spa() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [loggedInName, setLoggedInName] = React.useState("");
   const [loggedInEmail, setLoggedInEmail] = React.useState("");
+  const [loggedInBalance, setLoggedInBalance] = React.useState("");
 
   // ===== START Validations START===== //
   // check if valid password, returns true if valid
@@ -34,6 +35,15 @@ function Spa() {
   };
 
   // ===== CONTEXT VALUES =====
+  const [users, setUsers] = React.useState([
+    {
+      name: "abel",
+      email: "abel@mit.edu",
+      password: "secret",
+      balance: 100,
+    },
+  ]);
+
   let contextValue = {
     users: [
       {
@@ -49,6 +59,12 @@ function Spa() {
     ],
     loginEmail: [
       { loggedInEmail: loggedInEmail, setLoggedInEmail: setLoggedInEmail },
+    ],
+    loginBalance: [
+      {
+        loggedInBalance: loggedInBalance,
+        setLoggedInBalance: setLoggedInBalance,
+      },
     ],
     validations: [
       {

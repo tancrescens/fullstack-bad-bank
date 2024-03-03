@@ -46,6 +46,7 @@ function Withdraw() {
     // Validation
     const validateForm = () => {
       const validations = props.ctx.validations[0];
+      const balance = props.ctx.loginBalance[0].loggedInBalance;
       let newErrors = {};
 
       // Validation: email is required + valid format
@@ -54,6 +55,8 @@ function Withdraw() {
       } else if (!validations.isValidAmount(formData.amount)) {
         newErrors.amount =
           "Invalid amount format (only whole, positive numbers)";
+      } else if (formData.amount > balance) {
+        newErrors.amount = `Your balance is $${balance}, please enter an amount lesser or equals to that`;
       }
 
       setErrors(newErrors);
@@ -86,6 +89,7 @@ function Withdraw() {
             try {
               const data = JSON.parse(text);
               props.setStatus(`Balance: ${JSON.stringify(data.value.balance)}`);
+              props.ctx.loginBalance[0].setLoggedInBalance(data.value.balance);
               props.setShow(false);
               console.log("JSON:", data);
             } catch (err) {

@@ -87,6 +87,7 @@ function Deposit() {
             try {
               const data = JSON.parse(text);
               props.setStatus(`Balance: ${JSON.stringify(data.value.balance)}`);
+              props.ctx.loginBalance[0].setLoggedInBalance(data.value.balance);
               props.setShow(false);
               console.log("JSON:", data);
             } catch (err) {
