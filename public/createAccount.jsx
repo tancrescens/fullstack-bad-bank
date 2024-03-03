@@ -34,9 +34,6 @@ function CreateAccount() {
   }
 
   function CreateForm(props) {
-    // const [name, setName] = React.useState("");
-    // const [email, setEmail] = React.useState("");
-    // const [password, setPassword] = React.useState("");
     const [formData, setFormData] = React.useState({
       name: "",
       email: "",
@@ -115,12 +112,6 @@ function CreateAccount() {
       } else {
         console.log(`Account creation input validation FAILED`);
       }
-
-      //   (async () => {
-      //   var res = await fetch(url);
-      //   var data = await res.json();
-      //   console.log(`Creation success for ${JSON.stringify(data)}`);
-      // })();
     }
 
     return (

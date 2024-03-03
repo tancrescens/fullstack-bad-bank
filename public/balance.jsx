@@ -19,24 +19,6 @@ function Balance() {
   );
 }
 
-// function BalanceMsg(props) {
-//   return (
-//     <>
-//       <h5>Success</h5>
-//       <button
-//         type="submit"
-//         className="btn btn-primary"
-//         onClick={() => {
-//           props.setShow(true);
-//           props.setStatus("");
-//         }}
-//       >
-//         Check balance again
-//       </button>
-//     </>
-//   );
-// }
-
 function BalanceForm(props) {
   const [email, setEmail] = React.useState("");
   const [balance, setBalance] = React.useState("");
@@ -66,38 +48,9 @@ function BalanceForm(props) {
 
   return (
     <>
-      {/* Email
-      <br />
-      <input
-        type="input"
-        className="form-control"
-        placeholder="Enter email"
-        value={email}
-        onChange={(e) => setEmail(e.currentTarget.value)}
-      />
-      <br /> */}
       <button type="submit" className="btn btn-primary" onClick={handle}>
         Check Balance/ Refresh
       </button>
     </>
   );
 }
-// <div className="card" style="width: 18rem">
-//   <div className="card-body">
-//     <h5 className="card-title">Balance</h5>
-//     <p className="card-text"></p>
-//     Email
-//     <br />
-//     <input
-//       type="input"
-//       className="form-control"
-//       id="balanceEmail"
-//       placeholder="Enter email"
-//     />
-//     <br />
-//     <button type="submit" className="btn btn-primary" onClick="">
-//       Show Balance
-//     </button>
-//     <div id="balanceStatus"></div>
-//   </div>
-// </div>

@@ -30,54 +30,15 @@ function NavBar() {
     console.log(`ctx login status: ${ctx.loginStatus[0].isLoggedIn}`);
   }
 
-  /* AuthProvider */
-  // const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
-
-  // const logIn = (e) => {
-  //   e.preventDefault();
-  //   setIsLoggedIn(true);
-  //   setAuthUser({
-  //     Name: "John Doe",
-  //   });
-  // };
-  // const logOut = (e) => {
-  //   e.preventDefault();
-  //   setIsLoggedIn(false);
-  //   setAuthUser(null);
-  // };
-
   return (
     <>
-      {/* AuthProvider */}
-      {/* {" "}
-      <span>User is currently: {isLoggedIn ? "Logged-In" : "Logged Out"}.</span>
-      {isLoggedIn ? <span>User name: {authUser.Name}</span> : null}
-      <br />
-      {isLoggedIn ? (
-        <button
-          onClick={(e) => {
-            logOut(e);
-          }}
-        >
-          Log Out
-        </button>
-      ) : (
-        <button
-          onClick={(e) => {
-            logIn(e);
-          }}
-        >
-          Log In
-        </button>
-      )} */}
-
       {/* Logged Out Navbar */}
       <nav
         id="navLoggedOut"
         className="navbar navbar-expand-lg bg-body-tertiary"
       >
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand active" href="#">
             {" "}
             BadBank{" "}
           </a>
@@ -96,7 +57,7 @@ function NavBar() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <a
-                  className="nav-link active"
+                  className="nav-link"
                   aria-current="page"
                   href="#/createAccount"
                 >
@@ -107,12 +68,6 @@ function NavBar() {
                 <a className="nav-link" aria-current="page" href="#/login/">
                   {" "}
                   Login{" "}
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="#/allData/">
-                  {" "}
-                  AllData{" "}
                 </a>
               </li>
             </ul>
@@ -160,12 +115,6 @@ function NavBar() {
                 <a className="nav-link" aria-current="page" href="#/balance/">
                   {" "}
                   Balance{" "}
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="#/allData/">
-                  {" "}
-                  AllData{" "}
                 </a>
               </li>
             </ul>

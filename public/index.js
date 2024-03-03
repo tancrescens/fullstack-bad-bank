@@ -35,15 +35,6 @@ function Spa() {
   };
 
   // ===== CONTEXT VALUES =====
-  const [users, setUsers] = React.useState([
-    {
-      name: "abel",
-      email: "abel@mit.edu",
-      password: "secret",
-      balance: 100,
-    },
-  ]);
-
   let contextValue = {
     users: [
       {
@@ -78,7 +69,6 @@ function Spa() {
   return (
     <>
       <UserContext.Provider value={contextValue}>
-        {/* <AuthProvider> */}
         <HashRouter>
           <div>
             <NavBar />
@@ -98,7 +88,6 @@ function Spa() {
             </div>
           </div>
         </HashRouter>
-        {/* </AuthProvider> */}
       </UserContext.Provider>
     </>
   );
