@@ -28,6 +28,11 @@ function Spa() {
     return emailRegex.test(email);
   };
 
+  const isValidAmount = (amount) => {
+    const amountRegex = /^\d+$/;
+    return amountRegex.test(amount);
+  };
+
   // ===== CONTEXT VALUES =====
   let contextValue = {
     users: [
@@ -46,7 +51,11 @@ function Spa() {
       { loggedInEmail: loggedInEmail, setLoggedInEmail: setLoggedInEmail },
     ],
     validations: [
-      { isValidPassword: isValidPassword, isValidEmail: isValidEmail },
+      {
+        isValidPassword: isValidPassword,
+        isValidEmail: isValidEmail,
+        isValidAmount: isValidAmount,
+      },
     ],
   };
 

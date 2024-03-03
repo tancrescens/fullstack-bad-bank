@@ -37,83 +37,94 @@ function Deposit() {
   }
 
   function DepositForm(props) {
-    const [email, setEmail] = React.useState("");
     const [amount, setAmount] = React.useState("");
+    const [formData, setFormData] = React.useState({
+      amount: 0,
+    });
+    const [errors, setErrors] = React.useState({});
 
-    function handle() {
-      fetch(
-        `/account/update/${props.ctx.loginEmail[0].loggedInEmail}/${amount}`
-      )
-        .then((response) => response.text())
-        .then((text) => {
-          try {
-            const data = JSON.parse(text);
-            props.setStatus(`Balance: ${JSON.stringify(data.value.balance)}`);
-            props.setShow(false);
-            console.log("JSON:", data);
-          } catch (err) {
-            props.setStatus("Deposit failed");
-            console.log("err:", text);
-          }
-        })
-        .catch((err) => err);
+    // ===== START Validations START ===== //
+    // Validation
+    const validateForm = () => {
+      const validations = props.ctx.validations[0];
+      let newErrors = {};
+
+      // Validation: email is required + valid format
+      if (!formData.amount) {
+        newErrors.amount = "Amount is required";
+      } else if (!validations.isValidAmount(formData.amount)) {
+        newErrors.amount =
+          "Invalid amount format (only whole, positive numbers)";
+      }
+
+      setErrors(newErrors);
+      console.log(`Errors: ${errors}`);
+      return Object.keys(newErrors).length === 0;
+    };
+    // ===== END Validations END ===== //
+
+    // handle input changes
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    };
+
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      const isValid = validateForm();
+      if (isValid) {
+        console.log(`Deposit input validation SUCCESS`);
+        fetch(
+          `/account/update/${props.ctx.loginEmail[0].loggedInEmail}/${formData.amount}`
+        )
+          .then((response) => response.text())
+          .then((text) => {
+            try {
+              const data = JSON.parse(text);
+              props.setStatus(`Balance: ${JSON.stringify(data.value.balance)}`);
+              props.setShow(false);
+              console.log("JSON:", data);
+            } catch (err) {
+              props.setStatus("Deposit failed");
+              console.log("err:", text);
+            }
+          })
+          .catch((err) => err);
+      } else return false;
     }
 
     return (
       <>
-        {/* Email address
-        <br />
-        <input
-          type="input"
-          className="form-control"
-          placeholder="Enter email"
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-        />
-        <br /> */}
         Amount
         <br />
         <input
           type="input"
           className="form-control"
           placeholder="Enter amount"
-          value={amount}
-          onChange={(e) => setAmount(e.currentTarget.value)}
+          name="amount"
+          value={formData.amount}
+          onChange={handleChange}
+          id="depositAmount"
         />
+        {errors.amount && (
+          <label for="depositAmount" className="error">
+            {errors.amount}
+          </label>
+        )}
         <br />
-        <button type="submit" className="btn btn-primary" onClick={handle}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={handleSubmit}
+        >
           Deposit
         </button>
       </>
     );
   }
-
-  //   <div className="card" style="width: 18rem">
-  //   <div className="card-body">
-  //     <h5 className="card-title">Deposit</h5>
-  //     <p className="card-text"></p>
-  //     Email
-  //     <br />
-  //     <input
-  //       type="input"
-  //       className="form-control"
-  //       id="depositEmail"
-  //       placeholder="Enter email"
-  //     />
-  //     <br />
-  //     Amount
-  //     <br />
-  //     <input
-  //       type="password"
-  //       className="form-control"
-  //       id="depositAmount"
-  //       placeholder="Enter amount"
-  //     />
-  //     <br />
-  //     <button type="submit" className="btn btn-primary" onClick="">
-  //       Deposit
-  //     </button>
-  //     <div id="depositStatus"></div>
-  //   </div>
-  // </div>
 }
