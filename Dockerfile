@@ -15,4 +15,4 @@ ENV PORT=8080
 
 EXPOSE 8080
 
-CMD ["nvm", "use", "14.21.3"]
+CMD ["node", "index.js"]

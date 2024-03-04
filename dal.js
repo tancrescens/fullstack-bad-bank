@@ -1,19 +1,36 @@
 const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb://localhost:27017";
+const url = "mongodb://mongo:27017";
 let db = null;
 
-// connect to mongo
-MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
-  console.log("Connected successfully to db server");
+// // connect to mongo
+// MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
+//   console.log("Connected successfully to db server");
 
-  // connect to myproject database
-  db = client.db("myproject");
-});
+//   // connect to myproject database
+//   db = client.db("myproject");
+// });
+
+// connect to mongo
+MongoClient.connect(url, { useUnifiedTopology: true })
+  .then((client) => {
+    console.log("Connected successfully to db server");
+    // connect to myproject database
+    db = client.db("myproject");
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err);
+  });
 
 // create user account using the collection.insertOne function
 function create(name, email, password, balance) {
   // TODO: populate this function based off the video
   return new Promise((resolve, reject) => {
+    // checking if MongoDB connection is established.
+    if (!db) {
+      reject(new Error("MongoDB connection not established."));
+      return;
+    }
+
     const collection = db.collection("users");
     const doc = { name, email, password, balance };
 
