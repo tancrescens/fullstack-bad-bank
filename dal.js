@@ -1,5 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
+// For local MongoDB
 const url = "mongodb://mongo:27017";
+// To connect to 2e3crescens(on Docker Hub) hosted MongoDB Atlas
 const uri =
   "mongodb+srv://2e3crescens:ZCClTuDv4AojtBqQ@users.ne0l0zq.mongodb.net/?retryWrites=true&w=majority&appName=users";
 let db = null;
@@ -13,7 +15,7 @@ let db = null;
 // });
 
 // connect to mongo
-MongoClient.connect(url, { useUnifiedTopology: true })
+MongoClient.connect(uri, { useUnifiedTopology: true })
   .then((client) => {
     console.log("Connected successfully to db server");
     // connect to myproject database
