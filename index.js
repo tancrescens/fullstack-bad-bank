@@ -86,6 +86,6 @@ app.get("/account/findOne/:email", function (req, res) {
   });
 });
 
-var port = 3000;
+var port = process.env.PORT || 8080;
 app.listen(port);
 console.log("Running on port: " + port);
