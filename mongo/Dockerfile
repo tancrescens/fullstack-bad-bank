@@ -1,3 +1,0 @@
-FROM mongo:3.6.2
-
-EXPOSE 27017
