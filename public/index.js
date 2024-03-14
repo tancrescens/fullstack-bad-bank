@@ -1,10 +1,5 @@
 // Coordinator of modules
 function Spa() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [loggedInName, setLoggedInName] = React.useState("");
-  const [loggedInEmail, setLoggedInEmail] = React.useState("");
-  const [loggedInBalance, setLoggedInBalance] = React.useState("");
-
   // ===== START Validations START===== //
   // check if valid password, returns true if valid
   const isValidPassword = (password) => {
@@ -35,6 +30,10 @@ function Spa() {
   };
 
   // ===== CONTEXT VALUES =====
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [loggedInName, setLoggedInName] = React.useState("");
+  const [loggedInEmail, setLoggedInEmail] = React.useState("");
+  const [loggedInBalance, setLoggedInBalance] = React.useState("");
   let contextValue = {
     users: [
       {
