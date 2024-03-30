@@ -11,7 +11,7 @@ Run this application by clicking on this link: [link]().
 > 1. MERN-stack: MongoDB, Express, ReactJS, NodeJS <br>
 > 2. Render: Host the fullstack <br>
 > 3. Docker <br>
-> 4. Libraries (apart from MERN): cors, Bootstrap, Firebase
+> 4. Libraries (apart from MERN): cors, Bootstrap
 
 # Features:
 ## Current Features:
