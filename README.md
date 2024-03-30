@@ -5,7 +5,7 @@ A fullstack badbank application that includes authentication, authorization buil
 This project aims to build up and display my understanding of the MERN-stack
 
 # Installation Guidelines: 
-Run this application by clicking on this link: [link]().
+Run this application by clicking on this link: [link](https://crescens-tan-fullstack-banking.onrender.com/#/).
 
 # Technology used:
 > 1. MERN-stack: MongoDB, Express, ReactJS, NodeJS <br>
@@ -15,7 +15,7 @@ Run this application by clicking on this link: [link]().
 
 # Features:
 ## Current Features:
-1. Authentication and authorization of users through login/Firebase <br>
+1. Authentication and authorization of users through login <br>
 2. Dynamic Display of data based on authorization <br>
 3. Deposit/ Withdraw/ Check Balance of account <br>
 ## Future Features:
